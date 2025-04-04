@@ -1,8 +1,11 @@
 import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import Swiper from 'swiper';
 let data;
+new Swiper('.swiper-container');
 fetchData();
+
 
 function renderItems(data) {
   const slider = document.querySelector('.swiper-wrapper');
@@ -10,10 +13,10 @@ function renderItems(data) {
     .map(
       ({ author, avatar_url, review }) =>
         `
-           <div class="swiper-slide">
-                <img src="${avatar_url}">
-                <h4>${author}</h4>
-                <p>${review}</p>
+           <div class="swiper-slide slider-item">
+                <img class="slider-item-img" src="${avatar_url}">
+                <p class="slider-item-title">${author}</p>
+                <p class="slider-item-info">${review}</p>
             </div>             
             `
     )
@@ -22,7 +25,7 @@ function renderItems(data) {
   slider.insertAdjacentHTML('beforeend', markup);
 }
 
-async function getData() {
+async function getData() { 
   try {
     const response = await axios.get(
       'https://portfolio-js.b.goit.study/api/reviews'
